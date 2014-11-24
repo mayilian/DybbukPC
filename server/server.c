@@ -7,7 +7,7 @@
 #include "server.h"
 
 int main(void) {
-	const int port = 4445;
+	const int port = 4445; //just
 
 	/* Our process ID and Session ID */
 	pid_t pid, sid;

@@ -35,7 +35,7 @@ public class ClingActivity extends Activity {
 	Button.OnClickListener buttonSendOnClickListener = new Button.OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
-			new ClientTask("100.82.141.4", 4445).execute();
+			new ClientTask(your IP, port number).execute();
 		}
 	};
 
