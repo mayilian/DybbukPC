@@ -4,10 +4,12 @@
  android:layout_width="fill_parent"
  android:layout_height="fill_parent"
  >
+
 <TextView
  android:layout_width="fill_parent"
  android:layout_height="wrap_content"
  />
+
 <EditText
  android:id="@+id/textout"
  android:layout_width="fill_parent"
@@ -15,10 +17,16 @@
  android:inputType="text"/>
 
 <Button
-    android:id="@+id/send"
+    android:id="@+id/cling"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="@string/execute" />
+    android:text="@string/cling" />
+
+<Button
+    android:id="@+id/ip"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/ip" />
 
 <TextView
  android:id="@+id/textin"

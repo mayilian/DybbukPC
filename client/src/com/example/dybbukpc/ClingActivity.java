@@ -7,35 +7,83 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.example.remotemute.R;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 public class ClingActivity extends Activity {
 
 	EditText textOut;
 	TextView textIn;
+	SharedPreferences prefs;
+	static final String IP_PREF = "IP_PREF";
+    static final int PORT = 4445; //just
 
-	@Override
+			
+;	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mute);
-
+		prefs =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
 		textOut = (EditText) findViewById(R.id.textout);
-		Button buttonSend = (Button) findViewById(R.id.send);
-		textIn = (TextView) findViewById(R.id.textin);
-		buttonSend.setOnClickListener(buttonSendOnClickListener);
-	}
+		Button buttonCling = (Button) findViewById(R.id.cling);
+		Button buttonIP = (Button) findViewById(R.id.ip);
 
-	Button.OnClickListener buttonSendOnClickListener = new Button.OnClickListener() {
+		textIn = (TextView) findViewById(R.id.textin);
+		buttonCling.setOnClickListener(buttonClingOnClickListener);
+		buttonIP.setOnClickListener(buttonIPOnClickListener);
+
+	}
+	
+	Button.OnClickListener buttonIPOnClickListener = new Button.OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
-			new ClientTask(your IP, port number).execute();
+			AlertDialog.Builder alert = new AlertDialog.Builder(ClingActivity.this);
+
+			alert.setTitle("Set IP");
+
+			// Set an EditText view to get user input
+			final EditText input = new EditText(ClingActivity.this);
+			alert.setView(input);
+
+			alert.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							String value = input.getText().toString();
+							Editor editor = prefs.edit();
+							editor.putString(IP_PREF, value);
+							editor.commit();
+						}
+					});
+
+			alert.setNegativeButton("Cancel",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Canceled.
+						}
+					});
+
+			alert.show();
+		}
+	};
+	
+	Button.OnClickListener buttonClingOnClickListener = new Button.OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			String ip = prefs.getString(IP_PREF, "");
+			 new ClientTask(ip, PORT).execute();
 		}
 	};
 

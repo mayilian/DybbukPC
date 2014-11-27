@@ -3,6 +3,8 @@
 
     <string name="app_name">DybbukPC</string>
     <string name="action_settings">Settings</string>
-    <string name="execute">Cling</string>
+    <string name="cling">Cling</string>    
+    <string name="ip">IP</string>
+    
 
 </resources>
